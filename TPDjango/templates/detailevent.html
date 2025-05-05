@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>detailevent</title>
+</head>
+<body>
+
+  <h2>{{ evenement.titre }}</h2>
+<p>{{ evenement.description }}</p>
+<p>Date : {{ evenement.date_evenement }}</p>
+<p>Nombre de participants : {{ nombre_participants }}</p>
+
+{% if user.is_authenticated %}
+  {% if not deja_participe %}
+    <form method="post" action="{% url 'participer_evenement' evenement.id %}">
+      {% csrf_token %}
+      <button type="submit">Je participe</button>
+    </form>
+  {% else %}
+    <p>Vous avez déjà confirmé votre participation.</p>
+  {% endif %}
+{% else %}
+  <p><a href="{% url 'connexion' %}">Connectez-vous</a> pour participer.</p>
+{% endif %}
+
+  
+</body>
+</html>
+
